@@ -1,21 +1,22 @@
-import mongoose from "mongoose";
+import mongoose from 'mongoose';
 
-const connectDb = async () => {
-    const url = process.env.MONGO_URL;
+const connectDb = async()=>{
+    const url = process.env.MONGO_URI
 
     if(!url){
-        throw new Error ("MONGO_URL IS NOT DEFINED IN ENVIRONMENT");
-
+        throw new Error("MongoDB connection URL is not defined in environment variables");
     }
 
     try {
-        await mongoose.connect(url,{
-            dbName: "chatApp"
-        });
-        console.log("connected to mongo db")
+        await mongoose.connect(url,(
+            {
+                dbName: 'chat_app',
+            }
+        ));
+        console.log("connected to mongodb")
         
     } catch (error) {
-        console.error("failed to connect to mongo db ", error);
+        console.error('failed to conect to mongodb', error);
         process.exit(1);
     }
 }

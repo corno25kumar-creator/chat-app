@@ -1,36 +1,39 @@
-import express from "express";
-import dotenv from "dotenv";
-import connectDb from "./config/db.js";
-import { createClient } from "redis";
-import userRoutes from './routes/user.js'
+import express from 'express';
+import dotenv from 'dotenv';
+import connectDb from './config/db.js';
+import { createClient } from 'redis'; 
+import userRouter from './routes/user.js';
 
 dotenv.config();
 
-if (!process.env.REDIS_URL) {
-  throw new Error("❌ REDIS_URL is missing in environment variables");
-}
+const app= express();
+const port = process.env.PORT || 5000;
+app.use("/api/v1", userRouter)
 
-connectDb();
+
 
 export const redisClient = createClient({
-  url: process.env.REDIS_URL as string, 
-});
+    url: process.env.REDIS_URL ?? ''
+ })
 
 redisClient
-  .connect()
-  .then(() => console.log("✅ Connected to Redis"))
-  .catch((err) => console.error("❌ Redis connection error:", err));
+ .connect()
+ .then(() => console.log('Connected to Redis'))
+ .catch((err) => console.error('Redis connection error:', err));
 
 
-const app = express();
 
-app.use("api/v1", userRoutes)
+async function startServer() {
+    try{
+        await connectDb();
+        app.listen(port, ()=>{
+            console.log(`Server is running on port ${port}`);
+        })
+}
+catch(error){
+    console.error('server is running error', error);
+    process.exit(1);
 
-const port = process.env.PORT || 5000;
+} }
 
-
-app.use(express.json());
-
-app.listen(port, () => {
-  console.log(`🚀 Server is running on port ${port}`);
-});
+startServer();

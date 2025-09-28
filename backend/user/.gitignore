@@ -1,0 +1,25 @@
+# Node.js
+node_modules/
+dist/
+.env
+.env.*
+package-lock.json
+npm-debug.log*
+
+# Logs
+logs/
+*.log
+
+# OS
+.DS_Store
+Thumbs.db
+
+# TypeScript
+*.tsbuildinfo
+
+# VSCode
+.vscode/
+
+# Misc
+*.local
+*.cache
