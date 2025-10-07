@@ -3,10 +3,12 @@ import dotenv from 'dotenv';
 import connectDb from './config/db.js';
 import { createClient } from 'redis'; 
 import userRouter from './routes/user.js';
+import { connectRabbitMQ } from './config/rabbitmq.js';
 
 dotenv.config();
 
-const app= express();
+const app= express();   
+app.use(express.json());
 const port = process.env.PORT || 5000;
 app.use("/api/v1", userRouter)
 
@@ -26,6 +28,7 @@ redisClient
 async function startServer() {
     try{
         await connectDb();
+        await connectRabbitMQ();
         app.listen(port, ()=>{
             console.log(`Server is running on port ${port}`);
         })
