@@ -4,11 +4,17 @@ import connectDb from './config/db.js';
 import { createClient } from 'redis'; 
 import userRouter from './routes/user.js';
 import { connectRabbitMQ } from './config/rabbitmq.js';
+import cors from 'cors';
 
 dotenv.config();
 
 const app= express();   
 app.use(express.json());
+app.use(cors({
+    origin: '*',
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    allowedHeaders: ['Content-Type', 'Authorization'],
+}));
 const port = process.env.PORT || 5000;
 app.use("/api/v1", userRouter)
 
