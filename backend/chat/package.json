@@ -16,10 +16,13 @@
   "dependencies": {
     "@types/nodemon": "^1.19.6",
     "axios": "^1.12.2",
+    "cloudinary": "^1.41.3",
     "dotenv": "^17.2.3",
     "express": "^5.1.0",
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.19.1",
+    "multer": "^2.0.2",
+    "multer-storage-cloudinary": "^4.0.0",
     "nodemon": "^3.1.10"
   },
   "devDependencies": {
@@ -28,6 +31,7 @@
     "@types/express": "^5.0.3",
     "@types/jsonwebtoken": "^9.0.10",
     "@types/mongoose": "^5.11.96",
+    "@types/multer": "^2.0.0",
     "concurrently": "^9.2.1"
   }
 }
